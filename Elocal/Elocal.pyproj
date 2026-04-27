@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>026d32f8-07cc-49bd-bea4-df7bfd351cca</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>fencing_elo\k_factor.py</StartupFile>
+    <StartupFile>__main__.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Elocal</Name>
     <RootNamespace>Elocal</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,7 +26,8 @@
     <Compile Include="fencing_elo\db.py" />
     <Compile Include="fencing_elo\k_factor.py" />
     <Compile Include="fencing_elo\models.py" />
-    <Compile Include="fencing_elo\__init__.py" />
+    <Compile Include="fencing_elo\services.py" />
+    <Compile Include="__main__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fencing_elo\" />
