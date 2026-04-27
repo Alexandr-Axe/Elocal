@@ -49,37 +49,6 @@ def calculate_margin_multiplier(index):
 
     return 1 + 0.5 * (1 - math.exp(-x / 4))
 
-def calculate_k_factor(player_rating, first_tournament_date):
-    """
-    Calculate the K-factor (coefficient of growth) for a player based on their rating and fencing period.
-    
-    Parameters:
-    player_rating (int): The rating of the player.
-    
-    Returns:
-    int: The K-factor for the player.
-    """
-    today = date.today()
-
-    if first_tournament_date is None:
-        return 0
-
-    if player_rating >= 2400:
-        return 24
-
-    days_since_last_tournament = (today - first_tournament_date).days if first_tournament_date else None
-    years_since_last_tournament = days_since_last_tournament // 365
-
-    if years_since_last_tournament <= 0:
-        return 40
-    elif years_since_last_tournament == 1:
-        return 39
-    elif years_since_last_tournament == 2:
-        return 38
-    else:
-        k = 38 - 2 * (years_since_last_tournament - 2)
-        return max(24, k)
-
 def calculate_new_elo(player_rating, opponent_rating, index, k_factor = 40):
     """
     Calculate the new Elo rating for a player after a match.
