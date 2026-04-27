@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>026d32f8-07cc-49bd-bea4-df7bfd351cca</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Elocal.py</StartupFile>
+    <StartupFile>fencing_elo\k_factor.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,8 +21,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="calculator.py" />
-    <Compile Include="Elocal.py" />
+    <Compile Include="fencing_elo\elo_core.py" />
+    <Compile Include="fencing_elo\db.py" />
+    <Compile Include="fencing_elo\k_factor.py" />
+    <Compile Include="fencing_elo\models.py" />
+    <Compile Include="fencing_elo\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="fencing_elo\" />
+    <Folder Include="data\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
