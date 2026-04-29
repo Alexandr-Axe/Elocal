@@ -156,7 +156,7 @@ def get_all_players() -> List[Player]:
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM players ORDER BY last_name, first_name")
+    cur.execute("SELECT * FROM players ORDER BY current_elo")
     rows = cur.fetchall()
     conn.close()
 
@@ -263,3 +263,46 @@ def get_matches_for_player(player_id: int) -> List[Match]:
     conn.close()
 
     return [row_to_match(row) for row in rows]
+
+def delete_duplicate_players() -> int:
+    """
+    Delete duplicate players based on (first_name, last_name, team),
+    keeping only the earliest row for each combination.
+    Returns the number of deleted rows.
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT COUNT(*) FROM players")
+    before = cur.fetchone()[0]
+
+    cur.execute("""
+        DELETE FROM players
+        WHERE rowid NOT IN (
+            SELECT MIN(rowid)
+            FROM players
+            GROUP BY first_name, last_name, team
+        )
+    """)
+
+    conn.commit()
+
+    cur.execute("SELECT COUNT(*) FROM players")
+    after = cur.fetchone()[0]
+
+    conn.close()
+    return before - after
+
+def get_player_by_name(first_name: str, last_name: str) -> Optional[Player]:
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT *
+        FROM players
+        WHERE first_name = ?
+          AND last_name = ?
+        LIMIT 1
+    """, (first_name, last_name))
+    row = cur.fetchone()
+    conn.close()
+    return row_to_player(row) if row else None

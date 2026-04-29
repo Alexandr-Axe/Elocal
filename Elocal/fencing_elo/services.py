@@ -15,7 +15,7 @@ def update_player_elo(player: Player,
     """
     k = calculate_k_factor(
         player.current_elo,
-        player.last_match_date or match_date,
+        player.first_match_date or match_date,
         today=match_date
     )
 
@@ -77,7 +77,6 @@ def record_match(player_a_id: int,
             player_a_id=player_a_id,
             player_b_id=player_b_id,
             index_a=index_a,
-            index_b=index_b,
             conn=conn
         )
 
